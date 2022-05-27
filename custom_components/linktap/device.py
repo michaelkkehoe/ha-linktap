@@ -39,7 +39,7 @@ class LinkTapDeviceDataUpdateCoordinator(DataUpdateCoordinator):
     async def _async_update_data(self):
         """Update data via library."""
         try:
-            self._update_device()
+            await self._update_device()
         except Exception as error:
             raise UpdateFailed(error) from error
     @property
