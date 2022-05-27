@@ -9,7 +9,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from .const import DOMAIN as FLO_DOMAIN
+from .const import DOMAIN
 from .device import LinkTapDeviceDataUpdateCoordinator
 from .entity import LinkTapEntity
 
@@ -20,7 +20,7 @@ async def async_setup_entry(
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Set up the Flo sensors from config entry."""
-    devices: list[LinkTapDeviceDataUpdateCoordinator] = hass.data[FLO_DOMAIN][
+    devices: list[LinkTapDeviceDataUpdateCoordinator] = hass.data[DOMAIN][
         config_entry.entry_id
     ]["devices"]
     entities: list[BinarySensorEntity] = []
