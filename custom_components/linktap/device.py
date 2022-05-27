@@ -50,7 +50,7 @@ class LinkTapDeviceDataUpdateCoordinator(DataUpdateCoordinator):
 
     async def _update_device(self, *_) -> None:
         """Update the device information from the API."""
-        all_information = await self.api_client.get_all_devices()
+        all_information = await self.hass.async_add_executor_job(self.api_client.get_all_devices)
         for gateway in all_information['devices']:
             for linktap in gateway['taplinker']:
                 if linktap['taplinkerId'] == self._linktaper_id:
