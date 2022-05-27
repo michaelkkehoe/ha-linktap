@@ -72,7 +72,7 @@ class LinkTapDeviceDataUpdateCoordinator(DataUpdateCoordinator):
  
     @property
     def linktap_connected(self) -> bool:
-        return self._device_information['status'] == "Connected":
+        if self._device_information['status'] == "Connected":
             return True
         return False
         
