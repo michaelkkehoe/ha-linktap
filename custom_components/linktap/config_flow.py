@@ -20,7 +20,7 @@ async def validate_input(hass: core.HomeAssistant, data):
     session = async_get_clientsession(hass)
     try:
         client = await LinkTap(
-            data[CONF_USERNAME], data[CONF_PASSWORD]
+            data[CONF_USERNAME], data[CONF_API_KEY]
         )
     except Exception as request_error:
         LOGGER.error("Error connecting to the LinkTap API: %s", request_error)
