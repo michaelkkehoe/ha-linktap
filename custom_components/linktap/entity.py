@@ -34,12 +34,9 @@ class LinkTapEntity(Entity):
     def device_info(self) -> DeviceInfo:
         """Return a device description for device registry."""
         return DeviceInfo(
-            connections={(CONNECTION_NETWORK_MAC, self._device.mac_address)},
             identifiers={(DOMAIN, self._device.linktaper_id)},
             manufacturer=self._device.manufacturer,
-            model=self._device.model,
             name=self._device.device_name,
-            sw_version=self._device.gateway_version,
         )
 
     @property
