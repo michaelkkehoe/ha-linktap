@@ -45,12 +45,12 @@ class LinkTapDeviceDataUpdateCoordinator(DataUpdateCoordinator):
                         self._update_device(),
                     ]
                 )
-        except (RequestError) as error:
+        except Exception as error:
             raise UpdateFailed(error) from error
 
     async def _update_device(self, *_) -> None:
         """Update the device information from the API."""
-        all_information = await self.api_client.device.get_all_devices()
+        all_information = await self.api_client.get_all_devices()
         for gateway in all_information['devices']:
             for linktap in gateway['taplinker']:
                 if linktap['taplinkerId'] == self._linktaper_id:
