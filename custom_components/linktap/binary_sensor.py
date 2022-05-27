@@ -27,7 +27,7 @@ async def async_setup_entry(
     entities.append(LinkTapLeakDetectedBinarySensor(device))
     entities.append(LinkTapClogDetectedBinarySensor(device))
     entities.append(LinkTapHasNoWaterDetectedBinarySensor(device))
-    entities.append(LinkTapValveBrokenDetectedBinarySensor(device))
+    # entities.append(LinkTapValveBrokenDetectedBinarySensor(device))
     async_add_entities(entities)
 
 
