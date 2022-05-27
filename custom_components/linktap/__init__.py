@@ -2,7 +2,7 @@
 import asyncio
 import logging
 
-from linktap import LinkTap
+from linktap.LinkTap import LinkTap
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_API_KEY, CONF_USERNAME, Platform
