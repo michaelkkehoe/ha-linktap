@@ -47,7 +47,23 @@ class LinkTapDeviceDataUpdateCoordinator(DataUpdateCoordinator):
                 )
         except Exception as error:
             raise UpdateFailed(error) from error
-
+    @property
+    def location(self) -> str:
+        return self._device_information['gateway_location']
+    
+    @property
+    def id(self) -> str:
+        return self._linktaper_id
+    
+    @property
+    def device_name(self) -> str:
+        return self._device_information['taplinkerName']
+    
+    @property
+    def manufacturer(self) -> str:
+        """Return manufacturer for device."""
+        return self._manufacturer
+    
     async def _update_device(self, *_) -> None:
         """Update the device information from the API."""
         all_information = await self.hass.async_add_executor_job(self.api_client.get_all_devices)
@@ -56,5 +72,6 @@ class LinkTapDeviceDataUpdateCoordinator(DataUpdateCoordinator):
                 if linktap['taplinkerId'] == self._linktaper_id:
                     self._device_information = linktap
                     self._device_information['gateway_version'] = gateway['version']
-                    self._device_information['status'] = gateway['status']                    
+                    self._device_information['gateway_status'] = gateway['status']
+                    self._device_information['gateway_location'] = gateway['location']
         LOGGER.error("LinkTap device data: %s", self._device_information)
