@@ -26,9 +26,7 @@ async def validate_input(hass: core.HomeAssistant, data):
 
     devices = await hass.async_add_executor_job(client.get_all_devices)
     LOGGER.error(f"devices: {devices}")
-    a_location_id = user_info["locations"][0]["id"]
-    location_info = await api.location.get_info(a_location_id)
-    return {"title": location_info["nickname"]}
+    return {"title": "LinkTap Irrigation"}
 
 
 class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
