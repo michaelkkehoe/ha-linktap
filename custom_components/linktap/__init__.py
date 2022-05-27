@@ -30,7 +30,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         raise ConfigEntryNotReady from err
     linktap_data = await hass.async_add_executor_job(client.get_all_devices)
 
-    _LOGGER.error("Linktap Devices: %s", devices)
+    _LOGGER.error("Linktap Devices: %s", linktap_data)
     
     hass.data[DOMAIN][entry.entry_id]["devices"] = devices = [
         LinktapDeviceDataUpdateCoordinator(hass, client, gateway['gatewayId'], device["taplinkerId"])
