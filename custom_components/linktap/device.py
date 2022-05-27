@@ -70,6 +70,36 @@ class LinkTapDeviceDataUpdateCoordinator(DataUpdateCoordinator):
     def sw_version(self) -> float:
         return self._device_information['gateway_version']
  
+    @property
+    def gw_connected(self) -> bool:
+        if self._device_information['gateway_status'] == "Connected":
+            return True
+        return False
+ 
+    @property
+    def signal_strength(self) -> int:
+        return self._device_information['signal']
+
+    @property
+    def is_clogged(self) -> bool:
+        return self._device_information['clogFlag']  
+
+    @property
+    def is_leaking(self) -> bool:
+        return self._device_information['leakFlag']  
+
+    @property
+    def has_nowater(self) -> bool:
+        return self._device_information['noWater']  
+
+    @property
+    def is_valve_broken(self) -> bool:
+        return self._device_information['valveBroken']  
+
+    @property
+    def has_fall(self) -> bool:
+        return self._device_information['fall']  
+    
     async def _update_device(self) -> None:
         """Update the device information from the API."""
         all_information = await self.hass.async_add_executor_job(self.api_client.get_all_devices)
