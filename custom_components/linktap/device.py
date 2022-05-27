@@ -64,7 +64,7 @@ class LinkTapDeviceDataUpdateCoordinator(DataUpdateCoordinator):
         """Return manufacturer for device."""
         return self._manufacturer
 
-   @property
+    @property
     def battery_level(self) -> float:
         """Return the battery level for battery-powered device, e.g. leak detectors."""
         return float(self._device_information["batteryStatus"].strip("%"))
