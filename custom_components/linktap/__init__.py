@@ -35,7 +35,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     hass.data[DOMAIN][entry.entry_id]["devices"] = devices = [
         LinktapDeviceDataUpdateCoordinator(hass, client, gateway['gatewayId'], device["taplinkerId"])
         for gateway in linktap_data['devices']
-        for device in gateway['tapLinkerId']
+        for device in gateway['taplinker']
     ]
 
     tasks = [device.async_refresh() for device in devices]
