@@ -71,6 +71,12 @@ class LinkTapDeviceDataUpdateCoordinator(DataUpdateCoordinator):
         return self._device_information['gateway_version']
  
     @property
+    def linktap_connected(self) -> bool:
+        return self._device_information['status'] == "Connected":
+            return True
+        return False
+        
+    @property
     def gw_connected(self) -> bool:
         if self._device_information['gateway_status'] == "Connected":
             return True
