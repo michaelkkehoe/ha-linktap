@@ -28,8 +28,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         )
     except Exception as err:
         raise ConfigEntryNotReady from err
-
-    linktap_data = await client.get_all_devices()
+    linktap_data = await hass.async_add_executor_job(client.get_all_devices)
 
     _LOGGER.error("Linktap Devices: %s", devices)
     
