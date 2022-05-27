@@ -1,0 +1,9 @@
+{
+    "name": "LinkTap",
+    "domains": [
+      "switch",
+      "sensor",
+      "binary_sensor"
+    ],
+    "iot_class": "cloud_poll"
+  }
