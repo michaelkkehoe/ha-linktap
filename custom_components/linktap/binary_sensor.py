@@ -24,11 +24,12 @@ async def async_setup_entry(
         config_entry.entry_id
     ]["devices"]
     entities: list[BinarySensorEntity] = []
-    entities.append(LinkTapLeakDetectedBinarySensor(device))
-    entities.append(LinkTapClogDetectedBinarySensor(device))
-    entities.append(LinkTapHasNoWaterDetectedBinarySensor(device))
-    # entities.append(LinkTapValveBrokenDetectedBinarySensor(device))
-    async_add_entities(entities)
+    for device in devices:
+        entities.append(LinkTapLeakDetectedBinarySensor(device))
+        entities.append(LinkTapClogDetectedBinarySensor(device))
+        entities.append(LinkTapHasNoWaterDetectedBinarySensor(device))
+        entities.append(LinkTapValveBrokenDetectedBinarySensor(device))
+        async_add_entities(entities)
 
 
 class LinkTapLeakDetectedBinarySensor(LinkTapEntity, BinarySensorEntity):
