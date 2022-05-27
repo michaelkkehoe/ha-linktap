@@ -24,7 +24,7 @@ async def validate_input(hass: core.HomeAssistant, data):
         LOGGER.error("Error connecting to the LinkTap API: %s", request_error)
         raise CannotConnect from request_error
 
-    devices = await client.get_all_devices()
+    devices = client.get_all_devices()
     LOGGER.error(f"devices: {devices}")
     a_location_id = user_info["locations"][0]["id"]
     location_info = await api.location.get_info(a_location_id)
