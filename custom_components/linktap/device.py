@@ -63,7 +63,12 @@ class LinkTapDeviceDataUpdateCoordinator(DataUpdateCoordinator):
     def manufacturer(self) -> str:
         """Return manufacturer for device."""
         return self._manufacturer
-    
+
+   @property
+    def battery_level(self) -> float:
+        """Return the battery level for battery-powered device, e.g. leak detectors."""
+        return float(self._device_information["batteryStatus"].strip("%"))
+  
     async def _update_device(self, *_) -> None:
         """Update the device information from the API."""
         all_information = await self.hass.async_add_executor_job(self.api_client.get_all_devices)
