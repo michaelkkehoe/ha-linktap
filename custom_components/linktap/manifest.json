@@ -1,0 +1,14 @@
+{
+    "domain": "linktap",
+    "name": "Linktap",
+    "config_flow": true,
+    "documentation": "https://github.com/michaelkkehoe/ha-linktap",
+    "issue_tracker": "https://github.com/michaelkkehoe/ha-linktap/issues",
+    "dependencies": ["zeroconf"],
+    "codeowners": ["@michaelkkehoe"],
+    "requirements": [ "linktap"],
+    "version": "0.0.1",
+    "iot_class": "cloud_polling",
+    "quality_scale": "platinum",
+    "zeroconf": ["_linktap._tcp.local."]
+}
