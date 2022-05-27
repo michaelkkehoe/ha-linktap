@@ -34,7 +34,7 @@ class LinkTapEntity(Entity):
     def device_info(self) -> DeviceInfo:
         """Return a device description for device registry."""
         return DeviceInfo(
-            identifiers={(DOMAIN, self._device.linktaper_id)},
+            identifiers={(DOMAIN, self._device._linktaper_id)},
             manufacturer=self._device.manufacturer,
             name=self._device.device_name,
         )
