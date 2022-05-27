@@ -11,7 +11,7 @@ from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
 from .const import DOMAIN
-# from .device import FloDeviceDataUpdateCoordinator
+from .device import LinkTapDeviceDataUpdateCoordinator
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -33,7 +33,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     _LOGGER.error("Linktap Devices: %s", linktap_data)
     
     hass.data[DOMAIN][entry.entry_id]["devices"] = devices = [
-        LinktapDeviceDataUpdateCoordinator(hass, client, gateway['gatewayId'], device["taplinkerId"])
+        LinkTapDeviceDataUpdateCoordinator(hass, client, gateway['gatewayId'], device["taplinkerId"])
         for gateway in linktap_data['devices']
         for device in gateway['taplinker']
     ]
