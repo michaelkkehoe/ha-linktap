@@ -1,5 +1,5 @@
 """Config flow for flo integration."""
-from linktap import LinkTap
+from linktap.LinkTap import LinkTap
 import voluptuous as vol
 
 from homeassistant import config_entries, core, exceptions
@@ -16,10 +16,8 @@ async def validate_input(hass: core.HomeAssistant, data):
 
     Data has the keys from DATA_SCHEMA with values provided by the user.
     """
-
-    session = async_get_clientsession(hass)
     try:
-        client = await LinkTap(
+        client = LinkTap(
             data[CONF_USERNAME], data[CONF_API_KEY]
         )
     except Exception as request_error:
