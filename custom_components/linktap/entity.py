@@ -37,6 +37,7 @@ class LinkTapEntity(Entity):
             identifiers={(DOMAIN, self._device._linktaper_id)},
             manufacturer=self._device.manufacturer,
             name=self._device.device_name,
+            sw_version=self._device.sw_version.
         )
 
     @property
