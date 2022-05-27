@@ -43,9 +43,7 @@ class LinkTapEntity(Entity):
     @property
     def available(self) -> bool:
         """Return True if device is available."""
-        if self._device.status == "Connected":
-            return True
-        return False
+        return self._device.linktap_status
 
     async def async_update(self):
         """Update Flo entity."""
