@@ -24,7 +24,10 @@ async def async_setup_entry(
         config_entry.entry_id
     ]["devices"]
     entities: list[BinarySensorEntity] = []
-    entities.append(LinkTapLeakDetectedBinarySensor)
+    entities.append(LinkTapLeakDetectedBinarySensor(device))
+    entities.append(LinkTapClogDetectedBinarySensor(device))
+    entities.append(LinkTapHasNoWaterDetectedBinarySensor(device)
+    entities.append(LinkTapValveBrokenDetectedBinarySensor(device))
     async_add_entities(entities)
 
 
@@ -41,3 +44,46 @@ class LinkTapLeakDetectedBinarySensor(LinkTapEntity, BinarySensorEntity):
     def is_on(self):
         """Return true if the Flo device is detecting water."""
         return self._device.is_leaking
+
+    
+class LinkTapClogDetectedBinarySensor(LinkTapEntity, BinarySensorEntity):
+    """Binary sensor that reports if water is detected (for leak detectors)."""
+
+    _attr_device_class = BinarySensorDeviceClass.PROBLEM
+
+    def __init__(self, device):
+        """Initialize the pending alerts binary sensor."""
+        super().__init__("clog_detected", "Clog Detected", device)
+
+    @property
+    def is_on(self):
+        """Return true if the LinkTap device is clogged"""
+        return self._device.is_clogged
+    
+class LinkTapHasNoWaterDetectedBinarySensor(LinkTapEntity, BinarySensorEntity):
+    """Binary sensor that reports if water is detected (for leak detectors)."""
+
+    _attr_device_class = BinarySensorDeviceClass.PROBLEM
+
+    def __init__(self, device):
+        """Initialize the pending alerts binary sensor."""
+        super().__init__("has_nowater", "Has no Water", device)
+
+    @property
+    def is_on(self):
+        """Return true if the LinkTap device is clogged"""
+        return self._device.has_nowater
+                    
+class LinkTapValveBrokenDetectedBinarySensor(LinkTapEntity, BinarySensorEntity):
+    """Binary sensor that reports if water is detected (for leak detectors)."""
+
+    _attr_device_class = BinarySensorDeviceClass.PROBLEM
+
+    def __init__(self, device):
+        """Initialize the pending alerts binary sensor."""
+        super().__init__("valve_broken", "Valve Broken", device)
+
+    @property
+    def is_on(self):
+        """Return true if the LinkTap device is clogged"""
+        return self._device.is_valve_broken                       
