@@ -29,21 +29,20 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     except Exception as err:
         raise ConfigEntryNotReady from err
 
-    devices = await client.get_all_devices()
+    linktap_data = await client.get_all_devices()
 
     _LOGGER.error("Linktap Devices: %s", devices)
-    """
+    
     hass.data[DOMAIN][entry.entry_id]["devices"] = devices = [
-        LinktapDeviceDataUpdateCoordinator(hass, client, location["id"], device["id"])
-        for location in user_info["locations"]
-        for device in location["devices"]
+        LinktapDeviceDataUpdateCoordinator(hass, client, gateway['gatewayId'], device["taplinkerId"])
+        for gateway in linktap_data['devices']
+        for device in gateway['tapLinkerId']
     ]
 
     tasks = [device.async_refresh() for device in devices]
     await asyncio.gather(*tasks)
     hass.config_entries.async_setup_platforms(entry, PLATFORMS)
     return True
-    """
 
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
