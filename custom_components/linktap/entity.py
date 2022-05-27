@@ -25,7 +25,7 @@ class LinkTapEntity(Entity):
     ) -> None:
         """Init LinkTap entity."""
         self._attr_name = name
-        self._attr_unique_id = f"{device.linktaper_id}_{entity_type}"
+        self._attr_unique_id = f"{device._linktaper_id}_{entity_type}"
 
         self._device: LinkTapDeviceDataUpdateCoordinator = device
         self._state: Any = None
