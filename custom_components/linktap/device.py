@@ -39,12 +39,7 @@ class LinkTapDeviceDataUpdateCoordinator(DataUpdateCoordinator):
     async def _async_update_data(self):
         """Update data via library."""
         try:
-            async with timeout(10):
-                await asyncio.gather(
-                    *[
-                        self._update_device(),
-                    ]
-                )
+            self._update_device()
         except Exception as error:
             raise UpdateFailed(error) from error
     @property
@@ -69,7 +64,7 @@ class LinkTapDeviceDataUpdateCoordinator(DataUpdateCoordinator):
         """Return the battery level for battery-powered device, e.g. leak detectors."""
         return float(self._device_information["batteryStatus"].strip("%"))
   
-    async def _update_device(self, *_) -> None:
+    async def _update_device(self) -> None:
         """Update the device information from the API."""
         all_information = await self.hass.async_add_executor_job(self.api_client.get_all_devices)
         for gateway in all_information['devices']:
