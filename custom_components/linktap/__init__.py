@@ -10,8 +10,8 @@ from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
-from .const import CLIENT, DOMAIN
-from .device import FloDeviceDataUpdateCoordinator
+from .const import DOMAIN
+# from .device import FloDeviceDataUpdateCoordinator
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -20,11 +20,10 @@ PLATFORMS = [Platform.BINARY_SENSOR, Platform.SENSOR, Platform.SWITCH]
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up flo from a config entry."""
-    session = async_get_clientsession(hass)
     hass.data.setdefault(DOMAIN, {})
     hass.data[DOMAIN][entry.entry_id] = {}
     try:
-        hass.data[DOMAIN][entry.entry_id][CLIENT] = client = LinkTap(
+        hass.data[DOMAIN][entry.entry_id]["client"] = client = LinkTap(
             entry.data[CONF_USERNAME], entry.data[CONF_API_KEY]
         )
     except Exception as err:
@@ -33,7 +32,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     devices = await client.get_all_devices()
 
     _LOGGER.error("Linktap Devices: %s", devices)
-
+    """
     hass.data[DOMAIN][entry.entry_id]["devices"] = devices = [
         LinktapDeviceDataUpdateCoordinator(hass, client, location["id"], device["id"])
         for location in user_info["locations"]
@@ -44,6 +43,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     await asyncio.gather(*tasks)
     hass.config_entries.async_setup_platforms(entry, PLATFORMS)
     return True
+    """
 
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
