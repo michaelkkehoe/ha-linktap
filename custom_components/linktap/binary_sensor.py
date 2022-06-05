@@ -29,8 +29,23 @@ async def async_setup_entry(
         entities.append(LinkTapClogDetectedBinarySensor(device))
         entities.append(LinkTapHasNoWaterDetectedBinarySensor(device))
         entities.append(LinkTapValveBrokenDetectedBinarySensor(device))
+        entities.append(LinkTapFallDetectedBinarySensor(device))
         async_add_entities(entities)
 
+
+class LinkTapFallDetectedBinarySensor(LinkTapEntity, BinarySensorEntity):
+    """Binary sensor that reports if water is detected (for leak detectors)."""
+
+    _attr_device_class = BinarySensorDeviceClass.PROBLEM
+
+    def __init__(self, device):
+        """Initialize the pending alerts binary sensor."""
+        super().__init__("fall", "Leak Detected", device)
+
+    @property
+    def is_on(self):
+        """Return true if the Flo device is detecting water."""
+        return self._device.has_fall
 
 class LinkTapLeakDetectedBinarySensor(LinkTapEntity, BinarySensorEntity):
     """Binary sensor that reports if water is detected (for leak detectors)."""
@@ -46,7 +61,7 @@ class LinkTapLeakDetectedBinarySensor(LinkTapEntity, BinarySensorEntity):
         """Return true if the Flo device is detecting water."""
         return self._device.is_leaking
 
-    
+
 class LinkTapClogDetectedBinarySensor(LinkTapEntity, BinarySensorEntity):
     """Binary sensor that reports if water is detected (for leak detectors)."""
 
@@ -60,7 +75,7 @@ class LinkTapClogDetectedBinarySensor(LinkTapEntity, BinarySensorEntity):
     def is_on(self):
         """Return true if the LinkTap device is clogged"""
         return self._device.is_clogged
-    
+
 class LinkTapHasNoWaterDetectedBinarySensor(LinkTapEntity, BinarySensorEntity):
     """Binary sensor that reports if water is detected (for leak detectors)."""
 
@@ -74,7 +89,7 @@ class LinkTapHasNoWaterDetectedBinarySensor(LinkTapEntity, BinarySensorEntity):
     def is_on(self):
         """Return true if the LinkTap device is clogged"""
         return self._device.has_nowater
-                    
+
 class LinkTapValveBrokenDetectedBinarySensor(LinkTapEntity, BinarySensorEntity):
     """Binary sensor that reports if water is detected (for leak detectors)."""
 
@@ -87,4 +102,4 @@ class LinkTapValveBrokenDetectedBinarySensor(LinkTapEntity, BinarySensorEntity):
     @property
     def is_on(self):
         """Return true if the LinkTap device is clogged"""
-        return self._device.is_valve_broken                       
+        return self._device.is_valve_broken

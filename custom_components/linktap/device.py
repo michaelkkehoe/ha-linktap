@@ -45,16 +45,16 @@ class LinkTapDeviceDataUpdateCoordinator(DataUpdateCoordinator):
     @property
     def location(self) -> str:
         return self._device_information['gateway_location']
-    
+
     @property
     def id(self) -> str:
         return self._linktaper_id
-    
+
     @property
     def device_name(self) -> str:
         LOGGER.error(self._device_information)
         return self._device_information['taplinkerName']
-    
+
     @property
     def manufacturer(self) -> str:
         """Return manufacturer for device."""
@@ -65,47 +65,51 @@ class LinkTapDeviceDataUpdateCoordinator(DataUpdateCoordinator):
         """Return the battery level for battery-powered device, e.g. leak detectors."""
         LOGGER.error(float(self._device_information["batteryStatus"].strip("%")))
         return float(self._device_information["batteryStatus"].strip("%"))
-    
-    @property 
+
+    @property
     def sw_version(self) -> float:
         return self._device_information['gateway_version']
- 
+
     @property
     def linktap_connected(self) -> bool:
         if self._device_information['status'] == "Connected":
             return True
         return False
-        
+
     @property
     def gw_connected(self) -> bool:
         if self._device_information['gateway_status'] == "Connected":
             return True
         return False
- 
+
+    @property
+    def flow_meter_status(self) -> str:
+        return self._device_information['flowMeterStatus']
+
     @property
     def signal_strength(self) -> int:
         return self._device_information['signal']
 
     @property
     def is_clogged(self) -> bool:
-        return self._device_information['clogFlag']  
+        return self._device_information['clogFlag']
 
     @property
     def is_leaking(self) -> bool:
-        return self._device_information['leakFlag']  
+        return self._device_information['leakFlag']
 
     @property
     def has_nowater(self) -> bool:
-        return self._device_information['noWater']  
+        return self._device_information['noWater']
 
     @property
     def is_valve_broken(self) -> bool:
-        return self._device_information['valveBroken']  
+        return self._device_information['valveBroken']
 
     @property
     def has_fall(self) -> bool:
-        return self._device_information['fall']  
-    
+        return self._device_information['fall']
+
     async def _update_device(self) -> None:
         """Update the device information from the API."""
         all_information = await self.hass.async_add_executor_job(self.api_client.get_all_devices)
@@ -113,6 +117,7 @@ class LinkTapDeviceDataUpdateCoordinator(DataUpdateCoordinator):
             for linktap in gateway['taplinker']:
                 if linktap['taplinkerId'] == self._linktaper_id:
                     self._device_information = linktap
+                    self._device_information['watering_status'] = await self.hass.async_add_executor_job(self.api_client.get_watering_status, self._linktaper_id)
                     self._device_information['gateway_version'] = gateway['version']
                     self._device_information['gateway_status'] = gateway['status']
                     self._device_information['gateway_location'] = gateway['location']
