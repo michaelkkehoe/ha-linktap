@@ -110,6 +110,12 @@ class LinkTapDeviceDataUpdateCoordinator(DataUpdateCoordinator):
     def has_fall(self) -> bool:
         return self._device_information['fall']
 
+    async def turn_on(self, duration, eco_mode):
+        result = await self.hass.async_add_executor_job(self.api_client.activate_instant_mode, self._gateway_id, self._linktaper_id, "true", duration, eco_mode )
+
+    async def turn_off(self):
+        result = await self.hass.async_add_executor_job(self.api_client.activate_instant_mode, self._gateway_id, self._linktaper_id, "false", 0)
+
     async def _update_device(self) -> None:
         """Update the device information from the API."""
         all_information = await self.hass.async_add_executor_job(self.api_client.get_all_devices)
@@ -117,7 +123,7 @@ class LinkTapDeviceDataUpdateCoordinator(DataUpdateCoordinator):
             for linktap in gateway['taplinker']:
                 if linktap['taplinkerId'] == self._linktaper_id:
                     self._device_information = linktap
-                    self._device_information['watering_status'] = await self.hass.async_add_executor_job(self.api_client.get_watering_status, self._linktaper_id)
+                    # self._device_information['watering_status'] = await self.hass.async_add_executor_job(self.api_client.get_watering_status, self._linktaper_id)
                     self._device_information['gateway_version'] = gateway['version']
                     self._device_information['gateway_status'] = gateway['status']
                     self._device_information['gateway_location'] = gateway['location']
