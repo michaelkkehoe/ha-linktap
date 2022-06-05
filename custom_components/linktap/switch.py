@@ -43,7 +43,7 @@ class InstantModeSwitch(LinkTapEntity, SwitchEntity):
         device: LinkTapDeviceDataUpdateCoordinator,
     ) -> None:
         """Initialize the switch."""
-        super().__init__(device)
+        super().__init__("instant_mode", "Instant Mode", device)
 
     async def async_turn_on(self, **kwargs: Any) -> None:
         """Turn the switch on."""
