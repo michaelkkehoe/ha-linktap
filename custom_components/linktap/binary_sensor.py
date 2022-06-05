@@ -40,7 +40,7 @@ class LinkTapFallDetectedBinarySensor(LinkTapEntity, BinarySensorEntity):
 
     def __init__(self, device):
         """Initialize the pending alerts binary sensor."""
-        super().__init__("fall", "Leak Detected", device)
+        super().__init__("fall", "Fall Detected", device)
 
     @property
     def is_on(self):
