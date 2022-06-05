@@ -14,7 +14,7 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from .const import DOMAIN
 from .device import LinkTapDeviceDataUpdateCoordinator
-from .entity import  LinkTapEntity, async_update
+from .entity import  LinkTapEntity
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -45,12 +45,10 @@ class InstantModeSwitch(LinkTapEntity, SwitchEntity):
         """Initialize the switch."""
         super().__init__(device)
 
-    @async_update
     async def async_turn_on(self, **kwargs: Any) -> None:
         """Turn the switch on."""
         await self.device.turn_on(**kwargs)
 
-    @async_update
     async def async_turn_off(self, **kwargs: Any) -> None:
         """Turn the switch off."""
         await self.device.turn_off()
