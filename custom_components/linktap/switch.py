@@ -3,15 +3,12 @@ from __future__ import annotations
 
 from collections.abc import Sequence
 import logging
-from typing import Any, Final, cast
+from typing import Any, Final
 
-from .swidgetoutlet import SwidgetOutlet
-import voluptuous as vol
 
 from homeassistant.components.switch import SwitchEntity
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.core import HomeAssistant, callback
-from homeassistant.helpers import entity_platform
+from homeassistant.core import HomeAssistant
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
