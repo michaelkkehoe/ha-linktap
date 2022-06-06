@@ -111,10 +111,10 @@ class LinkTapDeviceDataUpdateCoordinator(DataUpdateCoordinator):
         return self._device_information['fall']
 
     async def turn_on(self, duration, eco_mode):
-        result = await self.hass.async_add_executor_job(self.api_client.activate_instant_mode, self._gateway_id, self._linktaper_id, "true", duration, eco_mode )
+        await self.hass.async_add_executor_job(self.api_client.activate_instant_mode, self._gateway_id, self._linktaper_id, "true", duration=1439, eco_mode=False )
 
     async def turn_off(self):
-        result = await self.hass.async_add_executor_job(self.api_client.activate_instant_mode, self._gateway_id, self._linktaper_id, "false", 0)
+        await self.hass.async_add_executor_job(self.api_client.activate_instant_mode, self._gateway_id, self._linktaper_id, "false", 0, False)
 
     async def _update_device(self) -> None:
         """Update the device information from the API."""
