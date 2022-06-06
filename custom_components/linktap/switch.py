@@ -52,4 +52,3 @@ class InstantModeSwitch(LinkTapEntity, SwitchEntity):
     async def async_turn_off(self, **kwargs: Any) -> None:
         """Turn the switch off."""
         await self._device.turn_off()
-_
