@@ -33,6 +33,8 @@ async def async_setup_entry(
         entities.extend(
             [
                 LinkTapBatterySensor(device),
+                LinkTapSignalStrengthSensor(device),
+                LinkTapFlowVelocitySensor(device)
             ]
        )
     async_add_entities(entities)

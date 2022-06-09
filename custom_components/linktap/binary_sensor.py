@@ -30,6 +30,7 @@ async def async_setup_entry(
         entities.append(LinkTapHasNoWaterDetectedBinarySensor(device))
         entities.append(LinkTapValveBrokenDetectedBinarySensor(device))
         entities.append(LinkTapFallDetectedBinarySensor(device))
+        entities.append(LinkTapFlowMeterStatusBinarySensor(device))
         async_add_entities(entities)
 
 
