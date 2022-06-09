@@ -33,7 +33,7 @@ class LinkTapDeviceDataUpdateCoordinator(DataUpdateCoordinator):
             hass,
             LOGGER,
             name=f"{DOMAIN}-{linktaper_id}",
-            update_interval=timedelta(seconds=30),
+            update_interval=timedelta(seconds=60),
         )
 
     async def _async_update_data(self):
@@ -109,6 +109,10 @@ class LinkTapDeviceDataUpdateCoordinator(DataUpdateCoordinator):
     @property
     def has_fall(self) -> bool:
         return self._device_information['fall']
+
+    @property
+    def flow_velocity(self) -> int:
+        return self._device_information['vel']
 
     async def turn_on(self, duration=1400, eco_mode=False):
         await self.hass.async_add_executor_job(self.api_client.activate_instant_mode, self._gateway_id, self._linktaper_id, True, duration, eco_mode)

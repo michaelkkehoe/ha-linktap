@@ -103,3 +103,17 @@ class LinkTapValveBrokenDetectedBinarySensor(LinkTapEntity, BinarySensorEntity):
     def is_on(self):
         """Return true if the LinkTap device is clogged"""
         return self._device.is_valve_broken
+
+class LinkTapFlowMeterStatusBinarySensor(LinkTapEntity, BinarySensorEntity):
+    """Binary sensor that reports if the flow meter is working."""
+
+    _attr_device_class = BinarySensorDeviceClass.PROBLEM
+
+    def __init__(self, device):
+        """Initialize the pending alerts binary sensor."""
+        super().__init__("flow_meter_status", "Flow Meter Status", device)
+
+    @property
+    def is_on(self):
+        """Return true if the LinkTap device is clogged"""
+        return self._device.flow_meter_status
