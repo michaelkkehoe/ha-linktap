@@ -62,7 +62,7 @@ class LinkTapFlowVelocitySensor(LinkTapEntity, SensorEntity):
 
     def __init__(self, device):
         """Initialize the flow velocity sensor."""
-        super().__init__("vel", ""VelocityNAME_BATTERY"", device)
+        super().__init__("vel", "Flow Velocity", device)
         self._state: float = None
 
     @property
@@ -80,7 +80,7 @@ class LinkTapSignalStrengthSensor(LinkTapEntity, SensorEntity):
 
     def __init__(self, device):
         """Initialize the flow velocity sensor."""
-        super().__init__("signal strength", "Signal Strength" device)
+        super().__init__("signal strength", "Signal Strength", device)
         self._state: float = None
 
     @property
