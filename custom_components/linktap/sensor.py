@@ -57,12 +57,12 @@ class LinkTapBatterySensor(LinkTapEntity, SensorEntity):
 class LinkTapFlowVelocitySensor(LinkTapEntity, SensorEntity):
     """Monitors the flow velocity when watering"""
 
-    _attr_device_class = SensorDeviceClass.MEASUREMENT
+    _attr_device_class = "flow_rate"
     _attr_native_unit_of_measurement = VOLUME_MILLILITERS_PER_MINUTE
 
     def __init__(self, device):
         """Initialize the flow velocity sensor."""
-        super().__init__("vel", NAME_BATTERY, device)
+        super().__init__("vel", ""VelocityNAME_BATTERY"", device)
         self._state: float = None
 
     @property
@@ -80,10 +80,10 @@ class LinkTapSignalStrengthSensor(LinkTapEntity, SensorEntity):
 
     def __init__(self, device):
         """Initialize the flow velocity sensor."""
-        super().__init__("vel", NAME_BATTERY, device)
+        super().__init__("signal strength", "Signal Strength" device)
         self._state: float = None
 
     @property
     def native_value(self) -> float | None:
         """Return the current  water flow velocity"""
-        return self._device.flow_velocity
+        return self._device.signal_strength
