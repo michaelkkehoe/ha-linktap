@@ -45,10 +45,18 @@ class InstantModeSwitch(LinkTapEntity, SwitchEntity):
         """Initialize the switch."""
         super().__init__("instant_mode", "Instant Mode", device)
 
+
     async def async_turn_on(self, **kwargs: Any) -> None:
         """Turn the switch on."""
         await self._device.turn_on(**kwargs)
+        self.is_on = True
 
     async def async_turn_off(self, **kwargs: Any) -> None:
         """Turn the switch off."""
         await self._device.turn_off(**kwargs)
+        self.is_on = False
+
+    @property
+    def is_on(self):
+        """Return the status of the sensor."""
+        return self._device.

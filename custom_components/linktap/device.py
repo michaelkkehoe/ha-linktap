@@ -114,6 +114,12 @@ class LinkTapDeviceDataUpdateCoordinator(DataUpdateCoordinator):
     def flow_velocity(self) -> int:
         return self._device_information['vel']
 
+    @property
+    def watering(self) -> bool:
+        if self._device_information['watering'] is None:
+            return False
+        return True
+
     async def turn_on(self, duration=1400, eco_mode=False):
         await self.hass.async_add_executor_job(self.api_client.activate_instant_mode, self._gateway_id, self._linktaper_id, True, duration, eco_mode)
 

@@ -45,6 +45,7 @@ class LinkTapBatterySensor(LinkTapEntity, SensorEntity):
 
     _attr_device_class = SensorDeviceClass.BATTERY
     _attr_native_unit_of_measurement = PERCENTAGE
+    _attr_entity_category = EntityCategory.DIAGNOSTIC
 
     def __init__(self, device):
         """Initialize the battery sensor."""
