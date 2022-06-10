@@ -59,4 +59,4 @@ class InstantModeSwitch(LinkTapEntity, SwitchEntity):
     @property
     def is_on(self):
         """Return the status of the sensor."""
-        return self._device.
+        return self._device.watering
