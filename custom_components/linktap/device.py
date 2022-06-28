@@ -63,7 +63,6 @@ class LinkTapDeviceDataUpdateCoordinator(DataUpdateCoordinator):
     @property
     def battery_level(self) -> float:
         """Return the battery level for battery-powered device, e.g. leak detectors."""
-        LOGGER.error(float(self._device_information["batteryStatus"].strip("%")))
         return float(self._device_information["batteryStatus"].strip("%"))
 
     @property
@@ -137,4 +136,3 @@ class LinkTapDeviceDataUpdateCoordinator(DataUpdateCoordinator):
                     self._device_information['gateway_version'] = gateway['version']
                     self._device_information['gateway_status'] = gateway['status']
                     self._device_information['gateway_location'] = gateway['location']
-        LOGGER.error("LinkTap device data: %s", self._device_information)
