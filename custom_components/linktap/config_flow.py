@@ -25,7 +25,6 @@ async def validate_input(hass: core.HomeAssistant, data):
         raise CannotConnect from request_error
 
     devices = await hass.async_add_executor_job(client.get_all_devices)
-    LOGGER.error(f"devices: {devices}")
     return {"title": "LinkTap Irrigation"}
 
 

@@ -132,7 +132,6 @@ class LinkTapDeviceDataUpdateCoordinator(DataUpdateCoordinator):
             for linktap in gateway['taplinker']:
                 if linktap['taplinkerId'] == self._linktaper_id:
                     self._device_information = linktap
-                    # self._device_information['watering_status'] = await self.hass.async_add_executor_job(self.api_client.get_watering_status, self._linktaper_id)
                     self._device_information['gateway_version'] = gateway['version']
                     self._device_information['gateway_status'] = gateway['status']
                     self._device_information['gateway_location'] = gateway['location']
