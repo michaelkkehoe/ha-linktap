@@ -52,7 +52,6 @@ class LinkTapDeviceDataUpdateCoordinator(DataUpdateCoordinator):
 
     @property
     def device_name(self) -> str:
-        LOGGER.error(self._device_information)
         return self._device_information['taplinkerName']
 
     @property
